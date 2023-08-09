@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate bills</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Nunito+Sans&family=Poppins:ital@1&family=Rubik&display=swap" rel="stylesheet">
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    header{
+        display: flex;
+        width: 100%;
+        height: 12.5%;
+        background-color: #71c1e8;
+        position: fixed;
+    }
+
+    #logo{
+        font-size: 15pt;
+        font-family: 'Instrument Sans', sans-serif;
+        margin-top: 10px;
+        padding: 30px 0 0 20px;
+        text-transform: uppercase;
+        font-weight: bold;
+        color: white;
+        }
+
+    #navbar{
+        padding-left: 50%; 
+        padding-top: 40px;
+    }
+        
+    .link{
+        color: black;
+        text-decoration: none;
+        padding-left: 55px;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: bold;
+        font-size: 15pt;
+        text-transform: uppercase;
+
+    }
+    .link:hover{
+        color: white;
+    }
+    
+    body{
+        background-color: #E0F8FB;
+    }
+
+    #form{
+    border-style: solid black;
+    }
+
+    #main-content{
+        padding: 10% 0 0 36%;
+        line-height: 2.5em;
+        font-family: 'Instrument Sans', sans-serif;
+        font-size: 13pt;  
+    }
+    #submit{
+        margin: 3% 0 3% 0%;
+        font-family: 'Instrument Sans', sans-serif;
+        font-size: 13pt;  
+        background-color: #71c1e8;
+        padding: 0.5% 15% 0.5% 15%;
+        color: white;
+
+    }
+
+</style>
+<header>
+    <p id = "logo">hospital management</p>
+    <nav id = "navbar">
+        <a class = "link" style = "padding-left:200px; padding-bottom: 40px;" href = "{% url 'homepage-receptionist' %}">Home</a>
+        <a class = "link" style = "padding-left:50px" href="{% url 'logout' %}">Logout</a>
+    </nav>
+</header>
+<body>
+    <div id = "main-content">
+        <p style = "font-weight: bold; padding: 0 0 4% 9%; font-size: 16pt;">Generate new bill</p>
+        <form id = "form" method="POST" action = "{% url 'generate_bill' %}">{% csrf_token %}
+            {{ form.errors }}
+    
+            <br>
+            <label>Patient ID</label>
+            <!-- <select name ="patient_id" id = "patient_id">
+                {% for patient in patients %}
+                <option style = "margin-left: 5.7em; padding: 3px 20px 3px 5px"  value = "{{ patient.patient_id }}">{{ patient.fname }}{{ patient.lname }}</option>
+                {% endfor %}
+            </select><br> -->
+            <input type = text name = "patient_id" value="{{ patient_id|escape }}" id = "patient_id" pattern = "A\d{1,9}" style = "margin-left: 6.85em; padding: 3px 20px 3px 5px;"/><br> 
+            <label>Room fee </label>
+            <input type = "number" name = "room_fee" step="0.01" value="{{ room_fee|escape }}" id = "room_fee" style = "margin-left: 7em; padding: 3px 20px 3px 5px;"/><br>
+            <label>Pharmacy charges</label>
+            <input type = "number" name = "pharmacy_charges" value="{{ pharmacy_charges|escape }}" id = "pharmacy_charges" step="0.01" style = "margin-left: 1.9em; padding: 3px 20px 3px 5px;"/><br>
+            <label>Doctor's fee </label>
+            <input type = "number" name = "doctor_fee" value="{{ doctor_fee|escape }}" id = "doctor_fee" step="0.01" style = "margin-left: 5.8em; padding: 3px 20px 3px 5px;"/><br>
+            <label>Paid by </label>
+            <input type = "number" name = "credit_card" value="{{ credit_card|escape }}" id = "credit_card" pattern = "\d{4}-\d{4}-\d{4}-\d{4}" style = "margin-left: 8.4em; padding: 3px 20px 3px 5px;"/><br>
+            <br>
+            <input type = "submit" value ="Add new bill" id = "submit">
+        </form>
+    </div>
+</body>
+</html>

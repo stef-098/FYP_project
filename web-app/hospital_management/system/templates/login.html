@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Nunito+Sans&family=Poppins:ital@1&family=Rubik&display=swap" rel="stylesheet">
+
+</head>
+    <style>
+        *{
+        margin: 0;
+        padding: 0;
+        }
+        p{
+        font-size: 18pt;
+        margin: 50px 30px 50px;
+        font-family: 'Instrument Sans', sans-serif;
+        font-weight: bold;
+        text-transform: uppercase;
+        }
+
+        form{
+            border: solid 1px black;
+            margin: 5%;
+            padding: 10% 0 10% 0;
+            text-align: center;
+        }
+        label{
+        line-height: 3.5;
+        font-family: 'Montserrat', sans-serif;
+        margin-left: 10px;
+        }
+
+        body{
+        background-color: #E0F8FB;
+        margin: 10% 35% 10% 40%; 
+        line-height: 50px;
+        }
+
+        #login{
+        margin: 3% 0% 3% 3%;
+        font-family: 'Instrument Sans', sans-serif;
+        font-size: 13pt;  
+        background-color: #71c1e8;
+        padding: 0.5% 5% 0.5% 5%;
+        color: white;
+        }
+    </style>
+</head>
+<body>
+    <p>Login to your account</p>
+    <form method="POST">
+    {{ form.errors }}
+    {% csrf_token %}
+	<label>Username: </label>
+    <input type = "text" name = "input_username" id = "input_username" value="{{ input_username|escape }}" style = "margin-left: 10px; padding: 3px 15px 3px 5px;" required/><br>
+	<input type = "submit" value ="Login" id = "login" style = "margin-top: 30px; margin-left: px;">
+</form>
+</body>
+</html>

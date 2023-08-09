@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add patient admission</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Nunito+Sans&family=Poppins:ital@1&family=Rubik&display=swap" rel="stylesheet">
+</head>
+<script>
+    function disableInput(){
+        var visit_dropdown = document.getElementById("visit_type");
+        var room_input = document.getElementById("room_no");
+
+        if (visit_dropdown.value == "OPD") {
+            room_input.disabled = true;
+        } else{
+            room_input.disabled = false;
+        }
+    }
+    function submitValue() {
+        var input_field = document.getElementById("room_no");
+        input_field.value = "";
+        document.forms[0].submit(); // Submit the form
+    }
+</script>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    header{
+        display: flex;
+        width: 100%;
+        height: 12.5%;
+        background-color: #71c1e8;
+        position: fixed;
+    }
+
+    #logo{
+        font-size: 15pt;
+        font-family: 'Instrument Sans', sans-serif;
+        padding: 35px 0 0 20px;
+        text-transform: uppercase;
+        font-weight: bold;
+        color: white;
+        }
+
+    #navbar{
+        padding-left: 45%; 
+        padding-top: 40px;
+    }
+        
+    .link{
+        color: black;
+        text-decoration: none;
+        padding-left: 20px;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: bold;
+        font-size: 15pt;
+        text-transform: uppercase;
+
+    }
+    .link:hover{
+        color: white;
+    }
+    
+    body{
+        background-color: #E0F8FB;
+    }
+
+    #main-content{
+        padding: 10% 0 0 36%;
+        line-height: 2.5em;
+        font-family: 'Instrument Sans', sans-serif;
+        font-size: 13pt;  
+    }
+    #submit{
+        margin: 3% 0 3% 0%;
+        font-family: 'Instrument Sans', sans-serif;
+        font-size: 13pt;  
+        background-color: #71c1e8;
+        padding: 0.5% 15% 0.5% 15%;
+        color: white;
+
+    }
+
+
+</style>
+<header>
+    <p id = "logo">hospital management</p>
+    <nav id = "navbar">
+        <a class = "link" style = "padding-left:200px; padding-bottom: 40px;" href = "{% url 'homepage-receptionist' %}">Home</a>
+        <a class = "link" style = "padding-left:50px" href="{% url 'logout' %}">Logout</a>
+    </nav>
+</header>
+<body>
+    <div id = "main-content">
+        <p style = "font-weight: bold; padding: 0 0 4% 9%; font-size: 16pt;">Add new admission</p>
+        <form id = "form" method="POST" action = "{% url 'admit_patient' %}">{% csrf_token %}
+            {{ form.errors }}
+    
+            <br>
+            <label>Patient ID</label>
+            <!-- <select name ="patient_id" id = "patient_id">
+                {% for patient in patients %}
+                <option style = "margin-left: 5.7em; padding: 3px 20px 3px 5px"  value = "{{ patient.patient_id }}">{{ patient.fname }}{{ patient.lname }}</option>
+                {% endfor %}
+            </select><br> -->
+            <input type = text name = "patient_id" value="{{ patient_id|escape }}" id = "patient_id" pattern = "A\d{1,9}" style = "margin-left: 5.75em; padding: 3px 20px 3px 5px;"><br> 
+            <label>Doctor name </label>
+            <input type = "text" name = "doctor_name" value="{{ doctor_name|escape }}" id = "doctor_name" pattern = "[a-zA-Z ]+" style = "margin-left: 4em; padding: 3px 20px 3px 5px;"><br>
+            <label>Physician name </label>
+            <input type = "text" name = "physician_name" value="{{ physician_name|escape }}" id = "physician_name" pattern = "[a-zA-Z ]+" style = "margin-left: 2.3em; padding: 3px 20px 3px 5px;"><br>
+            <label>Department</label>
+            <input type = "text" name = "department" value="{{ department|escape }}" id = "department"  pattern = "[a-zA-Z ]+"style = "margin-left: 4.7em; padding: 3px 20px 3px 5px;"><br>
+            <label>Type of visit </label>
+            <select name="visit_type" id="visit_type" onchange="disableInput()" style = "margin-left: 4.6em; padding: 3px 70px 3px 10px;">
+            <option value="OPD">Out-patient</option>
+            <option value="IPD">In-patient</option>
+            </select><br>
+            <label>Room number</label>
+            <input type = "text" name = "room_no" value="{{ room_no|escape }}" id = "room_no" pattern = "[a-zA-Z ]+" style = "margin-left: 3.2em; padding: 3px 20px 3px 5px;"><br>
+            <br>
+            <input type = "submit" value ="Add new admission" id = "submit">
+        </form>
+    </div>
+</body>
+</html>

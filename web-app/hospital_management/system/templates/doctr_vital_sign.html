@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search patient vital sign</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Nunito+Sans&family=Poppins:ital@1&family=Rubik&display=swap" rel="stylesheet">
+</head>
+<script>
+  // Remove query parameters when form is submitted
+  document.getElementById("search-form").addEventListener("submit", function(event) {
+    event.preventDefault();  // Prevent the form from submitting normally
+    var url = window.location.href.split("?")[0];  // Remove everything after "?"
+    window.location.href = url;  // Redirect to the modified URL
+  });
+</script>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    header{
+        display: flex;
+        width: 100%;
+        height: 12.5%;
+        background-color: #71c1e8;
+        position: fixed;
+    }
+
+    #logo{
+        font-size: 15pt;
+        font-family: 'Instrument Sans', sans-serif;
+        padding: 35px 0 0 20px;
+        text-transform: uppercase;
+        font-weight: bold;
+        color: white;
+        }
+
+    #navbar{
+        padding-left: 45%; 
+        padding-top: 40px;
+    }
+        
+    .link{
+        color: black;
+        text-decoration: none;
+        padding-left: 20px;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: bold;
+        font-size: 15pt;
+        text-transform: uppercase;
+
+    }
+    .link:hover{
+        color: white;
+    }
+    
+    body{
+        background-color: #E0F8FB;
+    }
+
+    #main-content{
+        padding: 10% 0 0 36%;
+        line-height: 2.5em;
+        font-family: 'Instrument Sans', sans-serif;
+        font-size: 13pt;  
+    }
+    #search_item{
+        font-family: 'Instrument Sans', sans-serif;
+    }
+    table{
+        border-collapse: collapse;
+        width: 100%;
+        border: 2px solid black;
+    }
+
+
+    th{
+        padding-left: 26px;
+        font-family: 'Instrument Sans', sans-serif;
+        font-size: 11.5pt;
+        text-align: left;
+        padding: 8px;
+        border: 1px solid black;
+        font-weight: bold;
+    }
+
+    td{
+        font-weight: none;
+        font-family: 'Instrument Sans', sans-serif;
+        font-size: 11.5pt;
+        text-align: center;
+        border: 1px solid black;
+        padding: 10px;
+    }
+
+    /* refrence: https://www.w3schools.com/html/html_table_styling.asp */
+    tr:nth-child(even) {
+        background-color:  rgba(150, 212, 212, 0.4);
+    }
+
+    th:nth-child(even),td:nth-child(even) {
+        background-color:  rgba(150, 212, 212, 0.4);
+    }
+
+</style>
+<header>
+    <p id = "logo">hospital management</p>
+    <nav id = "navbar">
+        <a class = "link" style = "padding-left:200px; padding-bottom: 40px;" href = "{% url 'homepage-doctor' %}">Home</a>
+        <a class = "link" style = "padding-left:80px" href="{% url 'logout' %}">Logout</a>
+    </nav>
+</header>
+<body>
+    <div id = "main-content">
+        <p style = "padding:0 0 4% 8%; font-size: 16pt; font-weight: bold;">Search for patient's vital sign</p>
+        <form id = "search-form" method = 'GET' action = "{% url 'view_vital_sign' %}">
+        <input type="text" placeholder="Search.." id = "search_item" name = "search_item" value="{{ search_item|escape }}" style = "margin:0 0 8% 8%; padding: 0.5% 2% 0.5% 0.5%;">
+        <button type = "submit" style = "padding: 0.5% 1.5% 0.5% 1.5%; font-size: 11pt;">Submit</button>
+        </form>
+    </div>
+        
+        <div id = "query-table">
+        <!-- reference: https://pytutorial.com/django-search-function/?utm_content=expand_article -->
+        <table>
+            <thead>
+                <tr>
+                    <th>Patient ID</th>
+                    <th>Temperature</th>
+                    <th>Weight</th>
+                    <th>Respiratory</th>
+                    <th>Diastolic</th>
+                    <th>Systolic</th>
+                    <th>Pulse</th>
+                    <th>Time recorded</th>
+                </tr>
+            </thead>
+        {% if found %}
+                <tbody>
+                    {% for patient in found %}
+                        <tr>
+                            <td>{{ patient.patient_id }}</td>
+                            <td>{{ patient.temperature }}</td>
+                            <td>{{ patient.weight }}</td>
+                            <td>{{ patient.respiratory }}</td>
+                            <td>{{ patient.diastolic }}</td>
+                            <td>{{ patient.systolic }}</td>
+                            <td>{{ patient.pulse }}</td>
+                            <td>{{ patient.datetime_vitalsign }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+        </table>
+            <p style = "text-align: center; padding-top: 20px; font-family: 'Instrument Sans', sans-serif; font-size: 12pt;">No results found</p>
+        {% endif %}
+        </div>
+    
+</body>
+</html>

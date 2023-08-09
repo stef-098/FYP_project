@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receptionist Profile</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Nunito+Sans&family=Poppins:ital@1&family=Rubik&display=swap" rel="stylesheet">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        header{
+            display: flex;
+            width: 100%;
+            height: 12.5%;
+            background-color: #71c1e8;
+            position: fixed;
+        }
+    
+        #logo{
+            font-size: 15pt;
+            font-family: 'Instrument Sans', sans-serif;
+            padding: 35px 0 0 20px;
+            text-transform: uppercase;
+            font-weight: bold;
+            color: white;
+            }
+    
+        #navbar{
+            padding-left: 45%; 
+            padding-top: 40px;
+        }
+            
+        .link{
+            color: black;
+            text-decoration: none;
+            padding-left: 20px;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: bold;
+            font-size: 15pt;
+            text-transform: uppercase;
+    
+        }
+        .link:hover{
+            color: white;
+        }
+        
+        body{
+            background-color: #E0F8FB;
+        }
+        #main-content{
+            padding: 10% 0 0 36%;
+            line-height: 2.5em;
+            font-family: 'Instrument Sans', sans-serif;
+            font-size: 13pt;  
+        }
+        #patient-display{
+            font-size: 13pt;
+            font-family: 'Instrument Sans', sans-serif;
+            line-height: 10px;
+        }
+    </style>
+    <header>
+        <p id = "logo">hospital management</p>
+        <nav id = "navbar">
+            <a class = "link" style = "padding-left:80px; padding-bottom: 40px;" href = "{% url 'homepage-receptionist' %}">Home</a>
+            <a class = "link" style = "padding-left:80px" href="{% url 'logout' %}">Logout</a>
+        </nav>
+    </header>
+    <body>
+        <div id = "main-content">
+        <p style = "font-size: 15pt; font-family: 'Instrument Sans', sans-serif; text-transform: uppercase;font-weight: bold;">Receptionist profile</p>
+            {% for receptionist in search %}
+            <div id = "patient-display">
+                    <p>First name: {{ receptionist.fname }}</p>
+                    <p>Last name: {{ receptionist.lname }}</p>
+                    <p>Recpetionist ID: {{ receptionist.patient_id }}</p>
+                    <p>Email: {{ receptionist.gender }}</p>
+                    <p>Phone number: {{ receptionist.age }}</p>
+                {% endfor %}
+            </div>
+        </div>
+    </body>
+    </html>

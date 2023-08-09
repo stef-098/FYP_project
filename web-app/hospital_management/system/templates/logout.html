@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logged out</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Nunito+Sans&family=Poppins:ital@1&family=Rubik&display=swap" rel="stylesheet">
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    p{
+        font-size: 15pt;
+        margin: 50px 30px 50px;
+        font-family: 'Instrument Sans', sans-serif;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+    body{
+        background-color: #E0F8FB;
+        margin: 10% 35% 10% 40%; 
+        line-height: 50px;
+        text-align: center;
+    }
+</style>
+<body>
+    <p>You are logged out!</p>
+    <p>Login <a href ="{% url 'login' %}">here</a></p>
+</body>
+</html>

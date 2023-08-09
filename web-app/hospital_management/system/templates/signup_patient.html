@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign up</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Nunito+Sans&family=Poppins:ital@1&family=Rubik&display=swap" rel="stylesheet">
+<script>
+    function username_check() {
+        var username = document.getElementById('username').value;
+
+        // Regular expression for password validation
+        var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]/;
+
+        if (!regex.test(username)) {
+        alert('Username must include at least one uppercase letter, one lowercase letter, one number and one special charter');
+        return false; // Prevent form submission
+        }
+        return true;
+    }
+
+    
+</script>
+<style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+
+        label{
+        line-height: 3.5;
+        font-family: 'Instrument Sans', sans-serif;
+        margin-left: 12px;
+        font-size: 14pt;
+        }
+
+        body{
+        background-color: #E0F8FB;
+        margin: 5% 30% 10% 35%; 
+        line-height: 40px;
+        }
+
+        #sign_up{
+        margin: 3% 0% 3% 1.5%;
+        font-family: 'Instrument Sans', sans-serif;
+        font-size: 13pt;  
+        background-color: #71c1e8;
+        padding: 0.5% 30% 0.5% 30%;
+        color: white;
+        }
+        ol,li{
+            margin-left: 12px;
+            font-family:'Instrument Sans', sans-serif;
+            font-size: 9pt;
+        }
+        input{
+            padding:  3px 3px 3px 3px;
+            font-size: 12pt; 
+            font-family: 'Instrument Sans', sans-serif;
+        }
+
+    </style>
+</head>
+<body>
+    <p style = "text-align: center; font-size: 18pt; margin: 50px 30px 50px; font-family: 'Instrument Sans', sans-serif; font-weight: bold; text-transform: uppercase;">Create an account</p>
+    <form method="POST" action = "{% url 'signup' %}">
+        {% csrf_token %}
+        <label>Input your patient ID: </label><br>
+        <input type = "text" name = "patient_id" id = "patient_id" value="{{ patient_id|escape }}" style = "margin-left: 10px;" required/><br>
+        <label>Create a username: </label><br>
+        <input type = "text" name = "username" id = "username" value="{{ username|escape }}" style = "margin-left: 10px;" onblur="return username_check();" required/>
+        <ol>Username requirement:
+            <li>Must include at least one uppercase letter</li>
+            <li>Must include at least one special character</li>
+            <li>Must include at least one number</li>
+            <li>Must be at least 10 characters</li>
+        </ol>
+        <br>
+        
+        <input type="submit" value ="Sign up" id = "sign_up" style = "margin-top: 30px; margin-left: px;"/>
+    </form>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add vital signs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Nunito+Sans&family=Poppins:ital@1&family=Rubik&display=swap" rel="stylesheet">
+</head>
+<script>
+
+    
+</script>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    header{
+        display: flex;
+        width: 100%;
+        height: 12.5%;
+        background-color: #71c1e8;
+        position: fixed;
+    }
+
+    #logo{
+        font-size: 15pt;
+        font-family: 'Instrument Sans', sans-serif;
+        padding: 35px 0 0 20px;
+        text-transform: uppercase;
+        font-weight: bold;
+        color: white;
+        }
+
+    #navbar{
+        padding-left: 50%; 
+        padding-top: 40px;
+    }
+        
+    .link{
+        color: black;
+        text-decoration: none;
+        padding-left: 55px;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: bold;
+        font-size: 15pt;
+        text-transform: uppercase;
+
+    }
+    .link:hover{
+        color: white;
+    }
+    
+    body{
+        background-color: #E0F8FB;
+    }
+    #main-content{
+        padding: 10% 0 0 36%;
+        line-height: 2.5em;
+        font-family: 'Instrument Sans', sans-serif;
+        font-size: 13pt;  
+    }
+    #submit{
+        margin: 4% 0% 3% 0%;
+        font-family: 'Instrument Sans', sans-serif;
+        font-size: 13pt;  
+        background-color: #71c1e8;
+        padding: 0.5% 15% 0.5% 15%;
+        color: white;
+    }
+
+</style>
+<header>
+    <p id = "logo">hospital management</p>
+    <nav id = "navbar">
+        <a class = "link" style = "padding-left:200px; padding-bottom: 40px;" href = "{% url 'homepage-nurse' %}">Home</a>
+        <a class = "link" style = "padding-left:50px" href="">Logout</a>
+    </nav>
+</header>
+<div id = "main-content">
+    <p style = "font-weight: bold; padding: 0 0 4% 9%; font-size: 16pt;">Add patient's vital sign</p>
+    <form id = "form" method="POST" action = "vital_sign">
+        {{ form.errors }}
+        {% csrf_token %}
+        <br>
+        <label>Patient ID </label>
+        <!-- reference: https://stackoverflow.com/questions/19011861/is-there-a-float-input-type-in-html5 -->
+        <input type = "text" name = "patient_id" value="{{ patient_id|escape }}" id = "patient_id" pattern = "A\d{1,9}" style = "margin-left: 9.9em; padding: 3px 15px 3px 5px;"><br>
+        <label>Temperature</label>
+        <input type = "number" step="0.01" name = "temperature" value="{{ temperature|escape }}" id = "temperature" size = "4" style = "margin: 0 1em 0 8.3em; padding: 3px 0px 3px 5px;"><p style = "display: inline; font-family: 'Instrument Sans', sans-serif;">degrees C</p><br>
+        <label>Pulse </label>
+        <input type = "number" name = "pulse" value="{{ pulse|escape }}" id = "pulse" size = "5" style = "margin: 0 1em 0 12.35em; padding: 3px 0px 3px 5px;"><p style = "display: inline; font-family: 'Instrument Sans', sans-serif;">/ minute</p><br>
+        <label>Weight</label>
+        <input type = "number" step="0.01" name = "weight" value="{{ weight|escape }}" id = "weight" size = "5" style = "margin: 0 1em 0 11.55em; padding: 3px 0px 3px 5px;"><p style = "display: inline; font-family: 'Instrument Sans', sans-serif;">kg</p><br>
+        <label>Respiratory</label>
+        <input type = "number" name = "respiratory" value="{{ respiratory|escape }}" id = "respiratory" size = "2" style = "margin: 0 1em 0 9em; padding: 3px 0px 3px 5px;"><p style = "display: inline; font-family: 'Instrument Sans', sans-serif;">/ minute</p><br>
+        <label>Blood pressure</label>
+        <input type = "number" name = "systolic" value="{{ systolic|escape }}" id = "systolic" size = "5" style = "margin: 0 1em 0 6.8em; padding: 3px 0px 3px 5px; "><p style = "display: inline; font-family: 'Instrument Sans', sans-serif;">/</p>
+        <input type = "number" name = "diastolic" value="{{ diastolic|escape }}" id = "diastolic" size = "5" style = "margin-left: 1em; padding: 3px 0px 3px 5px;"><br>
+        <input type = "submit" value ="Add new vital sign" id = "submit">
+        </form>
+</div>
+</body>
+</html>

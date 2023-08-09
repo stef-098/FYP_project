@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View medical Information</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Nunito+Sans&family=Poppins:ital@1&family=Rubik&display=swap" rel="stylesheet">
+</head>
+<script>
+
+    
+</script>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    header{
+        display: flex;
+        width: 100%;
+        height: 12.5%;
+        background-color: #71c1e8;
+        position: fixed;
+    }
+
+    #logo{
+        font-size: 15pt;
+        font-family: 'Instrument Sans', sans-serif;
+        padding: 35px 0 0 20px;
+        text-transform: uppercase;
+        font-weight: bold;
+        color: white;
+        }
+
+    #navbar{
+        padding-left: 45%; 
+        padding-top: 40px;
+    }
+        
+    .link{
+        color: black;
+        text-decoration: none;
+        padding-left: 20px;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: bold;
+        font-size: 15pt;
+        text-transform: uppercase;
+
+    }
+    .link:hover{
+        color: white;
+    }
+    
+    body{
+        background-color: #E0F8FB;
+    }
+
+    #main-content{
+        padding: 8% 0 0 0%;
+        line-height: 2.5em;
+        font-family: 'Instrument Sans', sans-serif;
+        font-size: 13pt;  
+    }
+    table{
+        border-collapse: collapse;
+        width: 60%;
+        margin-left: 19%;
+        border: 2px solid black;
+    }
+
+
+    th{
+        padding-left: 26px;
+        font-family: 'Instrument Sans', sans-serif;
+        font-size: 11.5pt;
+        text-align: left;
+        padding: 4px 0 4px 5px;
+        border: 1px solid black;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    td{
+        font-weight: none;
+        font-family: 'Instrument Sans', sans-serif;
+        font-size: 11.5pt;
+        text-align: center;
+        border: 1px solid black;
+        padding: 4px 0 4px 5px;
+        text-align: center;
+    }
+
+    /* refrence: https://www.w3schools.com/html/html_table_styling.asp */
+    tr:nth-child(even) {
+        background-color:  rgba(150, 212, 212, 0.4);
+    }
+
+    th:nth-child(even),td:nth-child(even) {
+        background-color:  rgba(150, 212, 212, 0.4);
+    }
+    #allergy-display{
+        font-size: 12pt;
+        margin: 2% 0 0 19%;
+    }
+    
+
+
+</style>
+<header>
+    <p id = "logo">hospital management</p>
+    <nav id = "navbar">
+        <a class = "link" style = "padding-left:200px; padding-bottom: 40px;" href = "{% url 'home-patient' %}">Home</a>
+        <a class = "link" style = "padding-left:50px" href="{% url 'logout' %}">Logout</a>
+    </nav>
+</header>
+<body>
+    <div id = "main-content">
+        <p style = "text-align: center; font-size: 16pt; padding:0 0 4% 0%; font-family: 'Instrument Sans', sans-serif;">Medical Record</p>
+        <p style = "font-weight: bold; font-size: 15pt; margin: 2% 0 1% 19%;">Surgery list</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Surgery name</th>
+                <th>Surgery year</th>
+            </tr>
+        </thead>
+    {% if search %}
+        <tbody>
+            {% for patient in search %}
+            <tr>
+                <td>{{ patient.surgery_list }}</td>
+                <td>{{ patient.surgery_year  }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <tbody>
+        <tr>
+            <td colspan="2">No surgery history</td>
+
+        </tr>
+        </table>
+    {% endif %}
+    <div id = "allergy-display">
+    <p style = "font-weight: bold; font-size: 15pt; ">Allergies: </p>
+    {% if search %}
+                <ol>
+                {% for patient in search %}
+                    <li>{{ patient.allergies }}</li>
+                </ol>
+                {% endfor %}
+    {% else %}
+    <p style = "display:inline;">None</p>
+    </div>
+    {% endif %}
+    </div>
+</body>
+</html>

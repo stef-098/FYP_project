@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add treatment plan</title>
+</head>
+<script>
+
+</script>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    header{
+        display: flex;
+        width: 100%;
+        height: 12.5%;
+        background-color: #71c1e8;
+        position: fixed;
+    }
+
+    #logo{
+        font-size: 15pt;
+        font-family: 'Instrument Sans', sans-serif;
+        padding: 35px 0 0 20px;
+        text-transform: uppercase;
+        font-weight: bold;
+        color: white;
+        }
+
+    #navbar{
+        padding-left: 45%; 
+        padding-top: 40px;
+    }
+        
+    .link{
+        color: black;
+        text-decoration: none;
+        padding-left: 20px;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: bold;
+        font-size: 15pt;
+        text-transform: uppercase;
+
+    }
+    .link:hover{
+        color: white;
+    }
+    
+    body{
+        background-color: #E0F8FB;
+    }
+
+    #main-content{
+        padding: 10% 0 0 36%;
+        line-height: 2.5em;
+        font-family: 'Instrument Sans', sans-serif;
+        font-size: 13pt;  
+    }
+    #submit{
+        margin: 3% 0% 3% 1.5%;
+        font-family: 'Instrument Sans', sans-serif;
+        font-size: 13pt;  
+        background-color: #71c1e8;
+        padding: 0.5% 15% 0.5% 15%;
+        color: white;
+    }
+    #add_medication{
+        margin: 3% 0% 3% 1.5%;
+        font-family: 'Instrument Sans', sans-serif;
+        font-size: 13pt;  
+        background-color: #71c1e8;
+        padding: 0.5% 2% 0.5% 2%;
+        color: white;
+
+    }
+    .medication_name{
+        margin: 0 0 1em 2.6em; 
+        padding: 3px 15px 3px 5px;
+    }
+    .prescription{
+        margin: 0 1em 1em 5.65em; 
+        padding: 3px 3px 3px 3px;
+    }
+    .medicine_unit{
+        display: inline; 
+        font-family: 'Instrument Sans', sans-serif;
+    }
+    textarea{
+        padding: 3px 0 0 5px; 
+        font-size: 13pt; 
+        font-family: 'Instrument Sans', sans-serif;
+        margin-bottom: 1.5em;
+
+    }
+
+</style>
+<header>
+    <p id = "logo">hospital management</p>
+    <nav id = "navbar">
+        <a class = "link" style = "padding-left:200px; padding-bottom: 40px;" href = "{% url 'homepage-doctor' %}">Home</a>
+        <a class = "link" style = "padding-left:50px" href="">Logout</a>
+    </nav>
+</header>
+<body>
+<div id = "main-content">
+    <p style = "font-weight: bold; padding: 0 0 4% 9%; font-size: 16pt;">Add treatment plans</p>
+    <form id = "form" method="POST" action = "{% url 'treatment_plan' %}">
+        {{ form.errors }}
+        {% csrf_token %}
+        <br>
+        <label>Patient ID </label>
+        <input type = "text" name = "patient_id" value="{{ patient_id|escape }}" id = "patient_id" pattern = "A\d{1,9}" style = "margin-left: 5.5em; padding: 3px 15px 3px 5px; font-family: 'Instrument Sans', sans-serif;"><br>
+        <p style = "padding-top: 1.5em; font-size: 14pt; font-weight: bold; text-transform: uppercase;">Diagnosis</p>
+        <label>Diagnosis description:</label><br>
+        <textarea name = "diagnosis" value="{{ diagnosis|escape }}" id = "diagnosis" rows = "6" cols = "70" pattern = "[a-zA-Z]+"></textarea>
+        <p style = "padding-top: 1.5em; font-size: 14pt; font-weight: bold; text-transform: uppercase;">Treatment plan</p>
+        <label>Duration</label>
+        <input type = "number" name = "duration" value="{{ duration|escape }}" id = "duration" pattern = "[a-zA-Z]+" size = "3" style = "margin-left: 6.85em; padding: 3px 15px 3px 5px;">
+        <select name = "duration_unit" value="{{ duration_unit|escape }}" id = "duration unit" style = "padding: 0 6px 0 6px; text-align: center; font-family: 'Instrument Sans', sans-serif; font-size: 12pt;">
+            <option value="day">Day</option>
+            <option value="month">Month</option>
+            <option value="year">Year</option>
+        </select>
+        <div id = "medication-container">
+        <label>Medication name</label>
+        <input type = "text" name = "medication_name" value="{{ medication_name|escape }}" class = "medication_name" id = "medication_name" style = "margin: 0 0 1em 2em; padding: 3px 15px 3px 5px;" pattern = "[a-zA-Z]+"><br>
+        <label>Prescription</label>
+        <input type = "number" name = "prescription" value="{{ prescription|escape }}" id = "prescription" pattern = "[0-9]" class = "prescription" style = "margin: 0 1em 1em 5.2em; padding: 3px 3px 3px 3px;" size = "4" style = "margin: 0 1em 1em 5.1em;" ><p class = "medicine-unit" style = "display: inline; font-family: 'Instrument Sans', sans-serif;">mg</p><br>
+        </div>
+        <label>Treatment plan description:</label><br> 
+        <textarea name = "plan_description" value="{{ plan_description|escape }}" id = "plan_description" rows = "6" cols = "70" pattern = "[a-zA-Z]+"></textarea><br>
+        <label>Additional note:</label><br>
+        <textarea name = "additional_note" value="{{ additional_note|escape }}" id = "additional_note"  rows = "6" cols = "70" pattern = "[a-zA-Z]+"></textarea><br>
+        <input type = "submit" value ="Add treatment plan" id = "submit">
+        </form>
+</div>
+</body>
+</html>

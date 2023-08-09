@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update patient information</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Nunito+Sans&family=Poppins:ital@1&family=Rubik&display=swap" rel="stylesheet">
+</head>
+<script>
+  // Remove query parameters when form is submitted
+  document.getElementById("search-form").addEventListener("submit", function(event) {
+    event.preventDefault();  // Prevent the form from submitting normally
+    var url = window.location.href.split("?")[0];  // Remove everything after "?"
+    window.location.href = url;  // Redirect to the modified URL
+  });
+</script>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    header{
+        display: flex;
+        width: 100%;
+        height: 12.5%;
+        background-color: #71c1e8;
+        position: fixed;
+    }
+
+    #logo{
+        font-size: 15pt;
+        font-family: 'Instrument Sans', sans-serif;
+        padding: 35px 0 0 20px;
+        text-transform: uppercase;
+        font-weight: bold;
+        color: white;
+        }
+
+    #navbar{
+        padding-left: 50%; 
+        padding-top: 40px;
+    }
+        
+    .link{
+        color: black;
+        text-decoration: none;
+        padding-left: 55px;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: bold;
+        font-size: 15pt;
+        text-transform: uppercase;
+
+    }
+    .link:hover{
+        color: white;
+    }
+    
+    body{
+        background-color: #E0F8FB;
+    }
+
+    #main-content{
+        padding: 10% 0 0 36%;
+        line-height: 2.5em;
+        font-family: 'Instrument Sans', sans-serif;
+        font-size: 13pt;  
+    }
+    #register{
+        margin: 3% 0% 3% 1.5%;
+        font-family: 'Instrument Sans', sans-serif;
+        font-size: 13pt;  
+        background-color: #71c1e8;
+        padding: 0.5% 15% 0.5% 15%;
+        color: white;
+
+    }
+</style>
+<header>
+    <p id = "logo">hospital management</p>
+    <nav id = "navbar">
+        <a class = "link" style = "padding-left:200px; padding-bottom: 40px;" href = "{% url 'homepage-receptionist' %}">Home</a>
+        <a class = "link" style = "padding-left:50px" href="{% url 'logout' %}">Logout</a>
+    </nav>
+</header>
+<body>
+    <div id = "main-content">
+        <p style = "font-weight: bold; padding: 0 0 2% 5%; font-size: 16pt;">Update existing patient information</p>
+    <form id = "form" method="POST" action = "{% url 'update_information' %}">
+        {{ form.errors }}
+        {% csrf_token %}
+        <br>
+            <label>Patient ID </label>
+            <input type = "text" name = "patient_id" id = "patient_id" value="{{ patient_id|escape }}" pattern = "[A-Za-z][0-9]{1,9}" style = "margin-left: 10.3em; padding: 3px 15px 3px 5px;" required/><br>
+            <label>First name </label>
+            <input type = "text" name = "fname" id = "fname" value="{{ fname|escape }}" pattern = "[a-zA-Z]+" style = "margin-left: 9.9em; padding: 3px 15px 3px 5px;" required/><br>
+            <label>Last name </label>
+            <input type = "text" name = "lname" id = "lname" value="{{ lname|escape }}" pattern = "[a-zA-Z]+" style = "margin-left: 10em; padding: 3px 15px 3px 5px;" required/><br>
+            <label>Gender </label>
+            <select name="gender" id="gender" style = "margin-left: 11.6em; padding: 3px 100px 3px 5px;">
+            <option value="F">Female</option>
+            <option value="M">Male</option>
+            </select>
+            <br>
+            <label>Age </label>
+            <input type = "number" name = "age" value="{{ age|escape }}" id = "age" pattern = "[0-9]{3}" style = "margin-left: 13.65em; padding: 3px 15px 3px 5px;" required/><br>
+            <label>Phone Number </label>
+            <input type = "number" name = "phone_number" value="{{ phone_number|escape }}" pattern = "[0-9]{8}" id = "phone_number" style = "margin-left: 7.25em; padding: 3px 15px 3px 5px;" required/><br>
+            <label>Email</label>
+            <input type = "email" name = "email" id = "email" value="{{ email|escape }}" style = "margin-left: 12.7em; padding: 3px 15px 3px 5px;" required/><br>
+            <label>Date of Birth </label>
+            <input type = "date" name = "dob" id = "dob"  min = "1870-01-01" max = "2023-06-30" required style = "margin-left: 8.9em; padding: 3px 15px 3px 5px;"/><br>
+            <label>Social Security Number </label>
+            <input type = "text" name = "ic" id = "ic" value="{{ ic|escape }}" style = "margin-left: 2.5em; padding: 3px 15px 3px 5px;" required/><br>
+            <label>Address </label>
+            <input type = "text" name = "address" value="{{ address|escape }}" id = "address" style = "margin-left: 11.43em; padding: 3px 15px 3px 5px;"required/><br>
+            <label>Nationality </label>
+            <input type = "text" name = "nationality" value="{{ nationality|escape }}" id = "nationality" pattern = "[a-zA-Z]+" style = "margin-left: 10.1em; padding: 3px 15px 3px 5px;" required/><br>
+            <p style = "padding: 5% 0 2% 0">Emergency Contact</p>
+            <label>Full Name </label>
+            <input type = "text" name = "name_emergency" value="{{ name_emergency|escape }}" id = "name_emergency" pattern = "[a-zA-Z ]+" style = "margin-left: 10.45em; padding: 3px 15px 3px 5px;" required/><br>
+            <label>Emergency Number </label>
+            <input type = "number" name = "emergency_number" value="{{ emergency_number|escape }}" id = "emergency_number" pattern = "[0-9]{3}" style = "margin-left: 4.8em; padding: 3px 15px 3px 5px;" required/><br>
+            <input type = "submit" value ="Update patinet information" id = "register">
+            </form>
+</div>
+</body>
+</html>
